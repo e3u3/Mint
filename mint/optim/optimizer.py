@@ -20,11 +20,11 @@ class Optimizer(object):
     
     def zero_grad(self):
         
-        raise NotImplementedError
         for module in self.modules.values():
             for key in module.parameters():
                 name = 'grad_' + str(key)
-                module.buffer[name] = np.zeros(module.buffer[name].shape)
+                if module.buffer[name] is not None:
+                    module.buffer[name] = np.zeros(module.buffer[name].shape)
     
     def step(self):
 
