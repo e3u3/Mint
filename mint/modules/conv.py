@@ -92,8 +92,11 @@ class Conv2d(_ConvNd):
         self.buffer['grad_weight'] = np.swapaxes(F.conv2d(np.swapaxes(self.buffer['in_map'], 0, 1), 
                 np.swapaxes(input, 0, 1), padding=(0, 0), bias=None), 0, 1) 
 
-        return F._remove_padding(F.conv2d(input, np.swapaxes(self.weight, 0, 1), None, 
-                padding=(self.kernel_size[0] - 1, self.kernel_size[1] - 1)), self.padding)
+        input_padded = np.lib.pad(input, ((0, 0), (0, 0), 
+            (self.kernel_size[0] - 1, 0), (self.kernel_size[0] - 1, 0)), 
+            'constant', constant_values=0.)
+        return F._remove_padding(F.conv2d(input, np.swapaxes(np.flip(self.weight, (2,3)), 0, 1), None, 
+                padding=(0, 0)), self.padding)
         
 
         

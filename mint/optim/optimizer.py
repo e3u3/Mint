@@ -20,6 +20,7 @@ class Optimizer(object):
     
     def zero_grad(self):
         
+        raise NotImplementedError
         for module in self.modules.values():
             for key in module.parameters():
                 name = 'grad_' + str(key)

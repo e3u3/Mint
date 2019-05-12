@@ -12,7 +12,7 @@ def linear(input, weight, bias=None):
 
 def conv2d(input, weight, bias=None, stride=(1, 1), padding=(1, 1), dilation=1, groups=1, padding_mode='zeros'):
     
-    input = np.lib.pad(input, ((0, 0), (0, 0), 
+    input = np.pad(input, ((0, 0), (0, 0), 
             (padding[0], padding[0]), (padding[1], padding[1])), 
             'constant', constant_values=0.)
     batch_size, _, height, width = input.shape
@@ -83,7 +83,7 @@ def softmax(input):
 def maxpool2d(input, kernel_size, stride, padding, dilation, ceil_mode, require_hot_map=False):
 
     ## TODO: dilation/ceil/return_indices
-    input = np.lib.pad(input, ((0, 0), (0, 0), (padding, padding), (padding, padding)), 
+    input = np.pad(input, ((0, 0), (0, 0), (padding, padding), (padding, padding)), 
             'constant', constant_values=0.)
     batch_size, channel, h, w = input.shape
     output = np.zeros((batch_size, channel, (h - kernel_size) // stride + 1, 
