@@ -1,4 +1,4 @@
-# Back Propagation Summary
+<center> <font size=6>Back Propagation Summary </font></center>
 
 ## 0. Overview
 
@@ -185,13 +185,37 @@ where $\check{*}$ denotes the map with zeros inserted between rows and columns, 
 
 The same as before, thus omitted.
 
-#### 3.2.3 Gradient to Propagate
+#### 3.2.3* Gradient to Propagate
 
-_//TODO_
 $$
-\frac{\partial\mathcal{L}}{\partial x^l_{n,c,h,w}}
+\begin{aligned}
+\frac{\partial\mathcal{L}}{\partial x^l_{n,c,h,w}} =& \sum_{c'=0}^{C^{l}-1}\sum_{h'=0}^{H^l-1}\sum_{w'=0}^{W^l-1}\frac{\partial\mathcal{L}}{\partial z^l_{n,c',h',w'}}\frac{\partial z^l_{n,c',h',w'}}{\partial x^l_{n,c,h,w}} \\
+=& \sum_{c'=0}^{C^{l}-1}\sum_{h'=0}^{H^l-1}\sum_{w'=0}^{W^l-1}\delta^l_{n,c',h',w'}\frac{\partial z^l_{n,c',h',w'}}{\partial x^l_{n,c,h,w}} \mathbb{I}_{F^l}(h,h',w,w'),
+\end{aligned}
 $$
 
+where $\mathbb{I}_{F^l}$ is an indicator that
+$$
+\mathbb{I}_{F^l}(h,h',w,w') = \left\{
+\begin{aligned}
+&1,\; (h'S,w'S)\in[\max(0,h-F^l+1), h]\times[\max(0,w-F^l+1), w]
+\\
+&0,\; \text{otherwise}.
+\end{aligned}
+\right.
+$$
 
+If we can get rid of $S$, the situation is completely the same as in 3.1.3. Fortunately, in 3.2.1, we have already achieved this by inserting $S-1$ zeros between rows and columns. Thus, formally
+$$
+\frac{\partial L}{\partial x^l_{n,c,h,w}} = \sum_{c'=0}^{C^l-1}\sum_{i=0}^{F^l-1}\sum_{j=0}^{F^l-1}\ddot{\check{\delta}}_{n,c',h+i,w+j} \hat{k}^l_{c,c',i,j},
+$$
+which means a convolution on gradient from the following layer (padded and inserted by zeros) by the flipped kernel.
 
+### 3.3 Convolution with Padding
+
+The case with padding is easy, we only need to remove the corresponding elements from the gradient from the following layer. Thus omitted.
+
+## 4. Max-pooling
+
+_TODO_
 
