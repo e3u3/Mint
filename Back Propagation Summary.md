@@ -141,7 +141,7 @@ $$
 \end{aligned}
 $$
 
-Here, we temporarily ignore the board problem where the index is negative. Meanwhile, the  $F^l$ in the index is annoying (maybe not :)). To solve these problems, an immediate choice is padding on the left and up side of the map $\partial\mathcal{L}/{\partial z^l}$ with $F^l-1$ zeros. Now update the equation above,
+Here, we temporarily ignore the board problem where the index is negative. Meanwhile, the  $F^l$ in the index is annoying (maybe not :)). To solve these problems, an immediate choice is padding the map $\partial\mathcal{L}/{\partial z^l}$ with $F^l-1$ zeros on each side. Now update the equation above,
 $$
 \begin{aligned}
 \frac{\partial\mathcal{L}}{\partial x^l_{n,c,h,w}}
